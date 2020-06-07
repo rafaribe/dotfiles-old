@@ -1,193 +1,78 @@
-command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
-" Don't try to be vi compatible
-set nocompatible
-
-" Helps force plugins to load correctly when it is turned back on below
-filetype off
-
-" TODO: Load plugins here (pathogen or vundle)
-
-" Turn on syntax highlighting
+" Enable Syntax higlighting
 syntax on
+" Fix Syntax Highligting Issues
 
-" For plugins to load correctly
-filetype plugin indent on
+" No Annoying Bell Errors
+set noerrorbells
+set belloff=all
 
-" TODO: Pick a leader key
-" let mapleader = ","
-
-" Security
-set modelines=0
-
-" Show line numbers
-set number
-
-" Show file stats
-set ruler
-
-" Blink cursor on error instead of beeping (grr)
-set visualbell
-
-" Encoding
-set encoding=utf-8
-
-" Whitespace
-set wrap
-set textwidth=79
-set formatoptions=tcqrn1
-set tabstop=2
+" Lines, Tabs and Spacing
+set tabstop=2 softtabstop=2
 set shiftwidth=2
-set softtabstop=2
 set expandtab
-set noshiftround
-
-" Cursor motion
-set scrolloff=3
-set backspace=indent,eol,start
-set matchpairs+=<:> " use % to jump between pairs
-runtime! macros/matchit.vim
-
-" Move up/down editor lines
-nnoremap j gj
-nnoremap k gk
-
-" Allow hidden buffers
-set hidden
-
-" Rendering
-set ttyfast
-
-" Status bar
-set laststatus=2
-
-" Last line
-set showmode
-set showcmd
-
-" Searching
-nnoremap / /\v
-vnoremap / /\v
-set hlsearch
-set incsearch
-set ignorecase
+set smartindent
 set smartcase
-set showmatch
-map <leader><space> :let @/=''<cr> " clear search
-
-" Remap help key.
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
-
-" Textmate holdouts
-
-" Formatting
-map <leader>q gqip
-
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
-" Helps force plugins to load correctly when it is turned back on below
-filetype off
-
-" TODO: Load plugins here (pathogen or vundle)
-
-" Turn on syntax highlighting
-syntax on
-
-" For plugins to load correctly
-filetype plugin indent on
-
-" TODO: Pick a leader key
-" let mapleader = ","
-
-" Security
-set modelines=0
-
-" Show line numbers
-set number
-
-" Show file stats
-set ruler
-
-" Blink cursor on error instead of beeping (grr)
-set visualbell
-
-" Encoding
-set encoding=utf-8
-
-" Whitespace
-set wrap
-set textwidth=79
-set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set noshiftround
-
-" Cursor motion
-set scrolloff=3
-set backspace=indent,eol,start
-set matchpairs+=<:> " use % to jump between pairs
-runtime! macros/matchit.vim
-
-" Move up/down editor lines
-nnoremap j gj
-nnoremap k gk
-
-" Allow hidden buffers
-set hidden
-
-" Rendering
-set ttyfast
-
-" Status bar
-set laststatus=2
-
-" Last line
-set showmode
-set showcmd
-
-" Searching
-nnoremap / /\v
-vnoremap / /\v
-set hlsearch
+"UTF-8 Encoding if not enabled by default
+set encoding=UTF-8
+" Hybrid Line Numbers 
+set number relativenumber
+set nu rnu 
+" Swap Files and Undo Settings
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+" Incremental Search - Search as you type
 set incsearch
-set ignorecase
-set smartcase
-set showmatch
-map <leader><space> :let @/=''<cr> " clear search
 
-" Remap help key.
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
+"Mapping leader key = SPACE
+map <Space> <Leader>
 
-" Textmate holdouts
+"Plugins - Using Plug Package Manager
 
-" Formatting
-map <leader>q gqip
+call plug#begin('~/.vim/plugged')
+Plug 'kaicataldo/material.vim' " Material Theme 
+Plug 'morhetz/gruvbox' " Gruvbox Theme - For what I feel like changing it 
+Plug 'tpope/vim-fugitive' "Git Integration Plugin
+Plug 'vim-utils/vim-man' "View Man pages on Vim
+Plug 'mbbill/undotree' " Undo History Viewer
+Plug 'preservim/nerdtree' "File Tree
+Plug 'ryanoasis/vim-devicons' "Sweet Icons for NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin' "Shows little indicators like VSCode when the file has been changed
+Plug 'vim-airline/vim-airline' "Lightweight Status line
+Plug 'vim-airline/vim-airline-themes' "Themes for vim airline
+Plug 'sheerun/vim-polyglot' "Better syntax Highlighting
+Plug 'leafgarland/typescript-vim' "Fix Typescript Syntax Highligting
+Plug 'fatih/vim-go' " Vim Go Plugin
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+" Plug End
 
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" For Neovim -1.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
-
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+" TermGuiColors - Needed for the Material Theme
 if (has('termguicolors'))
   set termguicolors
 endif
-"Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'kaicataldo/material.vim'
-"Color theme
+
+"Material Color Scheme
 let g:material_theme_style = 'darker'
 colorscheme material
+" Fix Weird Coloring for Line numbers in material darker theme
+hi LineNr       term=bold cterm=bold ctermfg=2 guifg=Grey guibg=Grey90
+"Vim Airline theme  
+let g:airline_theme= 'material'
+" Autoload NERDTree 
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" This Closes NerdTree if the only window open is NerdTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NerdTree Specific Keybindings
+let NERDTreeWinSize=40 
+let NERDTreeWinPos="left"
+let NERDTreeShowHidden=1
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+

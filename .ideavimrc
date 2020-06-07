@@ -1,2 +1,5 @@
 set showmode
-source ~/.vimrc
+set surround
+set commentary
+set rnu
+#source ~/.vimrc
