@@ -45,6 +45,7 @@ Plug 'sheerun/vim-polyglot' "Better syntax Highlighting
 Plug 'leafgarland/typescript-vim' "Fix Typescript Syntax Highligting
 Plug 'fatih/vim-go' " Vim Go Plugin
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdcommenter' "Easy comments
 call plug#end()
 " Plug End
 
@@ -73,6 +74,13 @@ let NERDTreeAutoDeleteBuffer=1
 let NERDTreeAutoDeleteBuffer=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-nnoremap <Leader>f :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+nnoremap <Leader>f :NERDTreeToggle %<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind %<CR>
+nnoremap <leader>u :UndotreeToggle<cr>
+"Nerd Commenter Settings
+filetype plugin on
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
+" Enable NERDCommenterToggle to check all selected lines is commented or no
+let g:NERDToggleCheckAllLines = 1
